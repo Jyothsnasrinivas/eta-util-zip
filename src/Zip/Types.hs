@@ -1,7 +1,8 @@
-module Zip.Types
+module Zip.Types where
 
 import Java
 import Java.Array
+import Java.Exception
 import Java.IO
 
 -- Start java.util.zip.CheckSum
@@ -53,9 +54,9 @@ data {-# CLASS "java.util.zip.CheckedOutputStream" #-}
   CheckedOutputStream = CheckedOutputStream (Object# CheckedOutputStream)
   deriving Class
 
-type instance Inherits CheckedOutputStream = '[FilterOutpuStream, Closeable, Flushable]
+type instance Inherits CheckedOutputStream = '[FilterOutputStream, Closeable, Flushable]
 
-foreign import java unsafe getChecksum :: Java CheckedOutputStream CheckSum
+foreign import java unsafe "getChecksum" getChecksumCOS :: Java CheckedOutputStream CheckSum
 
 -- End java.util.zip.CheckedOutputStream
 
@@ -71,3 +72,23 @@ foreign import java unsafe "update"
   updateCRC32 :: JByteArray -> Java CRC32 ()
 
 -- End java.util.zip.CRC32
+
+-- Start java.util.zip.DataFormatException
+
+data {-# CLASS "java.util.zip.DataFormatException" #-}
+  DataFormatException = DataFormatException (Object# DataFormatException)
+  deriving Class
+
+type instance Inherits DataFormatException = '[Exception]
+
+-- End java.util.zip.DataFormatException
+
+-- Start java.util.zip.ZipException
+
+data {-# CLASS "java.util.zip.ZipException" #-}
+  ZipException = ZipException (Object# ZipException)
+  deriving Class
+
+type instance Inherits ZipException = '[IOException]
+
+-- End java.util.zip.ZipException
