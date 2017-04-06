@@ -3,6 +3,8 @@ module Zip.Inflater where
 import Java
 import Java.Array
 import Java.IO
+import Zip.Zip
+import Zip.Deflater
 
 -- Start java.util.zip.Inflater
 
@@ -67,7 +69,7 @@ data {-# CLASS "java.util.zip.InflaterOutputStream" #-}
   InflaterOutputStream = InflaterOutputStream (Object# InflaterOutputStream)
   deriving Class
 
-type instance Inherits InflaterOutputStream = '[FilterOutpuStream, Closeable, Flushable]
+type instance Inherits InflaterOutputStream = '[FilterOutputStream, Closeable, Flushable]
 
 foreign import java unsafe finish :: (b <: InflaterOutputStream) => Java b ()
 
@@ -118,7 +120,7 @@ data {-# CLASS "java.util.zip.ZipOutputStream" #-}
 
 type instance Inherits ZipOutputStream = '[DeflaterOutputStream, Closeable, Flushable]
 
-foreign import java unsafe closeEntry :: (b <: ZipOutputStream) => Java b ()
+foreign import java unsafe "closeEntry" closeEntryDOS :: (b <: ZipOutputStream) => Java b ()
 
 foreign import java unsafe "finish" finishDOS :: (b <: ZipOutputStream) => Java b ()
 
