@@ -2,6 +2,7 @@ module Zip.Zip where
 
 import Java
 import Java.Array
+import Java.Collection
 import Java.IO
 import Java.Primitive
 
@@ -45,4 +46,26 @@ foreign import java unsafe setSize :: (b <: ZipEntry) => Int -> Java b ()
 
 foreign import java unsafe setTime :: (b <: ZipEntry) => Int64 -> Java b ()
 
--- Start java.util.zip.ZipEntry
+-- End java.util.zip.ZipEntry
+
+-- Start java.util.zip.ZipFile
+
+data {-# CLASS "java.util.zip.ZipFile" #-}
+  ZipFile = ZipFile (Object# ZipFile)
+  deriving Class
+
+foreign import java unsafe entries :: (b <: ZipFile, a <: ZipEntry) => Java b (Enumeration a)
+
+foreign import java unsafe finalize :: (b <: ZipFile) => Java b ()
+
+foreign import java unsafe "getComment" getCommentZF :: (b <: ZipFile) => Java b String
+
+foreign import java unsafe getEntry :: (b <: ZipFile) => String -> Java b ZipEntry
+
+foreign import java unsafe getInputStream :: (b <: ZipFile) => ZipEntry -> Java b InputStream
+
+foreign import java unsafe getName :: (b <: ZipFile) => Java b String
+
+foreign import java unsafe size :: (b <: ZipFile) => Java b Int
+
+-- Start java.util.zip.ZipFile
