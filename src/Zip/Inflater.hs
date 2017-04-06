@@ -71,4 +71,24 @@ type instance Inherits InflaterOutputStream = '[FilterOutpuStream, Closeable, Fl
 
 foreign import java unsafe finish :: (b <: InflaterOutputStream) => Java b ()
 
--- End java.util.zip.InflaterInputStream
+-- End java.util.zip.InflaterOutputStream
+
+-- Start java.util.zip.GZIPInputStream
+
+data {-# CLASS "java.util.zip.GZIPInputStream" #-}
+  InflaterInputStream = GZIPInputStream (Object# GZIPInputStream)
+  deriving Class
+
+type instance Inherits GZIPInputStream = '[InflaterInputStream, Closeable]
+
+-- Start java.util.zip.GZIPInputStream
+
+-- Start java.util.zip.GZIPOutputStream
+
+data {-# CLASS "java.util.zip.GZIPOutputStream" #-}
+  GZIPOutputStream = GZIPOutputStream (Object# GZIPOutputStream)
+  deriving Class
+
+type instance Inherits GZIPOutputStream = '[InflaterOutputStream, Closeable, Flushable]
+
+-- End java.util.zip.GZIPOutputStream
