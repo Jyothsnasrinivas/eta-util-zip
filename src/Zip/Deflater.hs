@@ -72,7 +72,7 @@ data {-# CLASS "java.util.zip.DeflaterOutputStream" #-}
   DeflaterOutputStream = DeflaterOutputStream (Object# DeflaterOutputStream)
   deriving Class
 
-type instance Inherits DeflaterOutputStream = '[FilterOutpuStream, Closeable, Flushable]
+type instance Inherits DeflaterOutputStream = '[FilterOutputStream, Closeable, Flushable]
 
 foreign import java unsafe "deflate" deflateDOS :: Java DeflaterOutputStream ()
 
