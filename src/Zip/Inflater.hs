@@ -76,12 +76,12 @@ foreign import java unsafe finish :: (b <: InflaterOutputStream) => Java b ()
 -- Start java.util.zip.GZIPInputStream
 
 data {-# CLASS "java.util.zip.GZIPInputStream" #-}
-  InflaterInputStream = GZIPInputStream (Object# GZIPInputStream)
+  GZIPInputStream = GZIPInputStream (Object# GZIPInputStream)
   deriving Class
 
 type instance Inherits GZIPInputStream = '[InflaterInputStream, Closeable]
 
--- Start java.util.zip.GZIPInputStream
+-- End java.util.zip.GZIPInputStream
 
 -- Start java.util.zip.GZIPOutputStream
 
@@ -90,5 +90,44 @@ data {-# CLASS "java.util.zip.GZIPOutputStream" #-}
   deriving Class
 
 type instance Inherits GZIPOutputStream = '[InflaterOutputStream, Closeable, Flushable]
+
+-- End java.util.zip.GZIPOutputStream
+
+-- Start java.util.zip.ZipInputStream
+
+data {-# CLASS "java.util.zip.ZipInputStream" #-}
+  ZipInputStream = ZipInputStream (Object# ZipInputStream)
+  deriving Class
+
+type instance Inherits ZipInputStream = '[InflaterInputStream, Closeable]
+
+foreign import java unsafe closeEntry :: (b <: ZipInputStream) => Java b ()
+
+foreign import java unsafe
+  createZipEntry :: (b <: ZipInputStream) => String -> Java b ZipEntry
+
+foreign import java unsafe getNextEntry :: (b <: ZipInputStream) => Java b ZipEntry
+
+-- End java.util.zip.ZipInputStream
+
+-- Start java.util.zip.ZipOutputStream
+
+data {-# CLASS "java.util.zip.ZipOutputStream" #-}
+  ZipOutputStream = ZipOutputStream (Object# ZipOutputStream)
+  deriving Class
+
+type instance Inherits ZipOutputStream = '[DeflaterOutputStream, Closeable, Flushable]
+
+foreign import java unsafe closeEntry :: (b <: ZipOutputStream) => Java b ()
+
+foreign import java unsafe "finish" finishDOS :: (b <: ZipOutputStream) => Java b ()
+
+foreign import java unsafe putNextEntry :: (b <: ZipOutputStream) => ZipEntry -> Java b ()
+
+foreign import java unsafe setComment :: (b <: ZipOutputStream) => String -> Java b ()
+
+foreign import java unsafe setLevel :: (b <: ZipOutputStream) => Int -> Java b ()
+
+foreign import java unsafe setMethod :: (b <: ZipOutputStream) => Int -> Java b ()
 
 -- End java.util.zip.GZIPOutputStream
