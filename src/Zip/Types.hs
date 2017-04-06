@@ -75,7 +75,7 @@ foreign import java unsafe "update"
 -- Start java.util.zip.Deflater
 
 data {-# CLASS "java.util.zip.Deflater" #-}
-  DEflater = Deflater (Object# Deflater)
+  Deflater = Deflater (Object# Deflater)
   deriving Class
 
 foreign import java unsafe deflate :: JByteArray -> Java Deflater Int
@@ -123,3 +123,25 @@ foreign import java unsafe setLevel :: Int -> Java Deflater ()
 foreign import java unsafe setStrategy :: Int -> Java Deflater ()
 
 -- End java.util.zip.Deflater
+
+-- Start java.util.zip.DeflaterInputStream
+
+data {-# CLASS "java.util.zip.DeflaterInputStream" #-}
+  DeflaterInputStream = DeflaterInputStream (Object# DeflaterInputStream)
+  deriving Class
+
+type instance Inherits DeflaterInputStream = '[FilterInputStream]
+
+-- End java.util.zip.DeflaterInputStream
+
+-- Start java.util.zip.DeflaterOutputStream
+
+data {-# CLASS "java.util.zip.DeflaterOutputStream" #-}
+  DeflaterOutputStream = DeflaterOutputStream (Object# DeflaterOutputStream)
+  deriving Class
+
+type instance Inherits DeflaterOutputStream = '[FilterOutpuStream, Closeable, Flushable]
+
+foreign import java unsafe "deflate" deflateDOS :: Java DeflaterOutputStream ()
+
+-- End java.util.zip.DeflaterOutputStream
