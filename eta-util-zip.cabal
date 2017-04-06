@@ -19,6 +19,7 @@ library
   exposed-modules:     Zip.Types
                        Zip.Deflater
                        Zip.Inflater
+                       Zip.Zip
   -- other-modules:
   -- other-extensions:
   build-depends:       base >=4.8 && <4.9
