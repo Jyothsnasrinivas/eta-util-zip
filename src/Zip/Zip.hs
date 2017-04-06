@@ -2,7 +2,8 @@ module Zip.Zip where
 
 import Java
 import Java.Array
-import Java.Collection
+import Java.Collections
+import Java.Exception
 import Java.IO
 import Java.Primitive
 
@@ -64,8 +65,18 @@ foreign import java unsafe getEntry :: (b <: ZipFile) => String -> Java b ZipEnt
 
 foreign import java unsafe getInputStream :: (b <: ZipFile) => ZipEntry -> Java b InputStream
 
-foreign import java unsafe getName :: (b <: ZipFile) => Java b String
+foreign import java unsafe "getName" getNameZF :: (b <: ZipFile) => Java b String
 
 foreign import java unsafe size :: (b <: ZipFile) => Java b Int
 
--- Start java.util.zip.ZipFile
+-- End java.util.zip.ZipFile
+
+-- Start java.util.zip.ZipError
+
+data {-# CLASS "java.util.zip.ZipError" #-}
+  ZipError = ZipError (Object# ZipError)
+  deriving Class
+
+type instance Inherits ZipError = '[InternalError]
+
+-- End java.util.zip.ZipError
